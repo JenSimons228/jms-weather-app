@@ -66,7 +66,22 @@ day4DateText.innerHTML = `${day4Date} ${day4Month} ${day4Year}`;
 let day5DateText = document.querySelector("#day5-date");
 day5DateText.innerHTML = `${day5Date} ${day5Month} ${day5Year}`;
 
+// Pull forecast data
+// Note - need to work on this section then remove console log
+
+function showForecast(response) {
+  console.log("hello");
+}
+
 // City search field
+
+function getLonLat(response) {
+  let lon1 = (response.data.results[0].geometry.lng);
+  let lat1 = (response.data.results[0].geometry.lat);
+  let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
+  let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat1}&lon=${lon1}&exclude={part}&appid=${apiKey}`;
+  axios.get(apiUrl2).then(showForecast);
+}
 
 function showTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
@@ -75,7 +90,6 @@ function showTemperature(response) {
   let mainDescription = response.data.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
-  console.log(response);
 }
 
 function search(event) {
@@ -88,6 +102,8 @@ function search(event) {
   let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(showTemperature);
+  let apiUrl1 = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=5205482e13d2458ba5738f8a2745c51d`;
+  axios.get(apiUrl1).then(getLonLat);
 }
 
 let refreshButton = document.querySelector("#refresh-button");
@@ -105,7 +121,7 @@ function showTemp(response) {
   let mainDescription = response.data.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
-}
+  }
 function myPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -114,6 +130,8 @@ function myPosition(position) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(showTemp);
 }
+
+    // Note: need to fix this so that it shows a location rather than 'Your current location' as this will prevent the forecast script from running. Can now use the location API to correct this.
 function myLocationButton() {
   let placeMain = document.querySelector("h1");
   placeMain.innerHTML = "Your current location";
@@ -121,10 +139,12 @@ function myLocationButton() {
   cityInput.value = placeMain.innerHTML;
   navigator.geolocation.getCurrentPosition(myPosition);
 }
+
 let myCity = document.querySelector("#my-location-button");
 myCity.addEventListener("click", myLocationButton);
 
 // Default weather info for London
+// Note - need to add default forecast data for London
 
 function showDefaultWeather(response) {
   let temperature = Math.round(response.data.main.temp);
@@ -139,6 +159,7 @@ let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=London&units=met
 axios.get(apiUrl).then(showDefaultWeather);
 
 // Celsius and fahrenheit buttons
+// Note - need to replace this with a calculation rather than fixed values.
 
 function replaceWithF(event) {
   let degrees = document.querySelector("#main-temp");
