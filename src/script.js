@@ -68,9 +68,61 @@ day5DateText.innerHTML = `${day5Date} ${day5Month} ${day5Year}`;
 
 // Pull forecast data
 // Note - need to work on this section then remove console log
+// Note - current = now, daily[0] = today, daily [1] = tomorrow etc.
 
 function showForecast(response) {
-  console.log("hello");
+  let maxtemp1 = (response.data.daily[1].temp.max);
+  let maxtemp2 = (response.data.daily[2].temp.max);
+  let maxtemp3 = (response.data.daily[3].temp.max);
+  let maxtemp4 = (response.data.daily[4].temp.max);
+  let maxtemp5 = (response.data.daily[5].temp.max);
+
+  let mintemp1 = (response.data.daily[1].temp.min);
+  let mintemp2 = (response.data.daily[2].temp.min);
+  let mintemp3 = (response.data.daily[3].temp.min);
+  let mintemp4 = (response.data.daily[4].temp.min);
+  let mintemp5 = (response.data.daily[5].temp.min);
+
+  let humidity1 = (response.data.daily[1].humidity);
+  let humidity2 = (response.data.daily[2].humidity);
+  let humidity3 = (response.data.daily[3].humidity);
+  let humidity4 = (response.data.daily[4].humidity);
+  let humidity5 = (response.data.daily[5].humidity);
+
+  let windspeed1 = (response.data.daily[1].wind_speed);
+  let windspeed2 = (response.data.daily[2].wind_speed);
+  let windspeed3 = (response.data.daily[3].wind_speed);
+  let windspeed4 = (response.data.daily[4].wind_speed);
+  let windspeed5 = (response.data.daily[5].wind_speed);
+
+  let day1conditions = (`Highs of ${maxtemp1} and lows of ${mintemp1}, humidity: ${humidity1}%, wind speed: ${windspeed1} Km/h`);
+  let day1data = document.querySelector("#day1");
+  day1data.innerHTML = `${day1conditions}`;
+
+  let day2conditions = (`Highs of ${maxtemp2} and lows of ${mintemp2}, humidity: ${humidity2}%, wind speed: ${windspeed2} Km/h`);
+  let day2data = document.querySelector("#day2");
+  day2data.innerHTML = `${day2conditions}`;
+
+  let day3conditions = (`Highs of ${maxtemp3} and lows of ${mintemp3}, humidity: ${humidity3}%, wind speed: ${windspeed3} Km/h`);
+  let day3data = document.querySelector("#day3");
+  day3data.innerHTML = `${day3conditions}`;
+
+  let day4conditions = (`Highs of ${maxtemp4} and lows of ${mintemp4}, humidity: ${humidity4}%, wind speed: ${windspeed4} Km/h`);
+  let day4data = document.querySelector("#day4");
+  day4data.innerHTML = `${day4conditions}`;
+
+  let day5conditions = (`Highs of ${maxtemp5} and lows of ${mintemp5}, humidity: ${humidity5}%, wind speed: ${windspeed5} Km/h`);
+  let day5data = document.querySelector("#day5");
+  day5data.innerHTML = `${day5conditions}`;
+  
+  console.log(response.data.daily[1].temp.min);
+  console.log(response.data.daily[1].humidity);
+  console.log(response.data.daily[1].weather[0].description);
+  console.log(response.data.daily[1].weather[0].icon);
+  console.log(response.data.daily[1].wind_speed);
+  console.log(response.data.daily[1].sunrise);
+  console.log(response.data.daily[1].sunset);
+  console.log(response);
 }
 
 // City search field
@@ -79,7 +131,9 @@ function getLonLat(response) {
   let lon1 = (response.data.results[0].geometry.lng);
   let lat1 = (response.data.results[0].geometry.lat);
   let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
-  let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat1}&lon=${lon1}&exclude={part}&appid=${apiKey}`;
+  let unit = "metric";
+  let exclude = "minutely,hourly,alerts";
+  let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat1}&lon=${lon1}&exclude=${exclude}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl2).then(showForecast);
 }
 

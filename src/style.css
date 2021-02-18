@@ -3,7 +3,7 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 350px;
+  height: 400px;
   width: 650px;
   border-radius: 4px;
 }
@@ -43,20 +43,20 @@
 .container-results-main {
   border-radius: 4px;
   margin: 10px;
-  height: 240px;
+  height: 290px;
   background-color: white;
   opacity: 0.5;
   text-align: center;
 }
 .isquare {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   margin: 10px;
 }
 .mini-icon {
   color: #6e4b8f;
   font-size: 30px;
-  line-height: 40px;
+  line-height: 50px;
 }
 .main-weather-icon {
   color: #6e4b8f;
@@ -77,13 +77,27 @@
   margin: 10px;
   background-color: white;
   opacity: 0.5;
-  height: 40px;
+  height: 50px;
 }
 p {
   font-size: 12px;
   padding-left: 5px;
   padding-top: 2px;
   color: #6e4b8f;
+}
+#day1
+#day2
+#day3
+#day4
+#day5 {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.forecast {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 }
 .developer {
   color: white;
