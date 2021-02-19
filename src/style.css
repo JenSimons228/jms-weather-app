@@ -54,9 +54,8 @@
   margin: 10px;
 }
 .mini-icon {
-  color: #6e4b8f;
-  font-size: 30px;
-  line-height: 50px;
+height: 50px;
+width: 50px;
 }
 .main-weather-icon {
   color: #6e4b8f;
@@ -66,7 +65,8 @@
   color: #6e4b8f;
   font-size: 14px;
   font-weight: bold;
-  padding: 10px;
+  padding: 0px;
+  margin: 0;
 }
 .container-results1,
 .container-results2,

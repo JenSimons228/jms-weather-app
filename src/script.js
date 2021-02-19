@@ -67,7 +67,6 @@ let day5DateText = document.querySelector("#day5-date");
 day5DateText.innerHTML = `${day5Date} ${day5Month} ${day5Year}`;
 
 // Pull forecast data
-// Note - need to work on this section then remove console log
 // Note - current = now, daily[0] = today, daily [1] = tomorrow etc.
 
 function showForecast(response) {
@@ -198,19 +197,118 @@ let myCity = document.querySelector("#my-location-button");
 myCity.addEventListener("click", myLocationButton);
 
 // Default weather info for London
-// Note - need to add default forecast data for London
 
-function showDefaultWeather(response) {
-  let temperature = Math.round(response.data.main.temp);
+function getLondon(response) {
+  //current weather icon for London
+  let iconCode = (response.data.current.weather[0].icon);
+  let icon = document.querySelector("#main-icon");
+  icon.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode}@2x.png`);
+
+  //forecast weather icons for London
+  let iconCode1 = (response.data.daily[1].weather[0].icon);
+  let icon1 = document.querySelector("#icon1");
+  icon1.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode1}@2x.png`);
+
+  let iconCode2 = (response.data.daily[2].weather[0].icon);
+  let icon2 = document.querySelector("#icon2");
+  icon2.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode2}@2x.png`);
+
+  let iconCode3 = (response.data.daily[3].weather[0].icon);
+  let icon3 = document.querySelector("#icon3");
+  icon3.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode3}@2x.png`);
+
+  let iconCode4 = (response.data.daily[4].weather[0].icon);
+  let icon4 = document.querySelector("#icon4");
+  icon4.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode4}@2x.png`);
+
+  let iconCode5 = (response.data.daily[5].weather[0].icon);
+  let icon5 = document.querySelector("#icon5");
+  icon5.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode5}@2x.png`);
+  
+  //current temperature for London
+  let temp = Math.round(response.data.current.temp);
   let degrees = document.querySelector("#main-temp");
-  degrees.innerHTML = `${temperature}°C`;
-  let mainDescription = response.data.weather[0].description;
+  degrees.innerHTML = `${temp}°C`;
+  
+  //forecast temperature for London
+  let temp1max = Math.round(response.data.daily[1].temp.max);
+  let temp1min = Math.round(response.data.daily[1].temp.min);
+
+  let temp2max = Math.round(response.data.daily[2].temp.max);
+  let temp2min = Math.round(response.data.daily[2].temp.min);
+
+  let temp3max = Math.round(response.data.daily[3].temp.max);
+  let temp3min = Math.round(response.data.daily[3].temp.min);
+
+  let temp4max = Math.round(response.data.daily[4].temp.max);
+  let temp4min = Math.round(response.data.daily[4].temp.min);
+
+  let temp5max = Math.round(response.data.daily[5].temp.max);
+  let temp5min = Math.round(response.data.daily[5].temp.min);
+
+  //current weather description for London
+  let mainDescription = response.data.current.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
-}
+  
+  //forecast weather description for London
+  let description1 = response.data.daily[1].description;
+  let description2 = response.data.daily[2].description;
+  let description3 = response.data.daily[3].description;
+  let description4 = response.data.daily[4].description;
+  let description5 = response.data.daily[5].description;
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=20b8554eeba454a5c2dc8a5569e82273`;
-axios.get(apiUrl).then(showDefaultWeather);
+  //current humidity for London
+  let humidity = Math.round(response.data.current.humidity);
+  let humidityResult = document.querySelector("#main-humidity");
+  humidityResult.innerHTML = `Humidity: ${humidity}%`;
+  
+  //forecast humidity for London
+  let humidity1 = Math.round(response.data.daily[1].humidity);
+  let humidity2 = Math.round(response.data.daily[2].humidity);
+  let humidity3 = Math.round(response.data.daily[3].humidity);
+  let humidity4 = Math.round(response.data.daily[4].humidity);
+  let humidity5 = Math.round(response.data.daily[5].humidity);
+
+  //current windspeed for London
+  let windspeed = Math.round(response.data.current.wind_speed);
+  let windspeedResult = document.querySelector("#main-windspeed");
+  windspeedResult.innerHTML = `Wind Speed: ${windspeed} Km/h`;
+
+  //forecast windspeed for London
+  let windspeed1 = Math.round(response.data.daily[1].wind_speed);
+  let windspeed2 = Math.round(response.data.daily[2].wind_speed);
+  let windspeed3 = Math.round(response.data.daily[3].wind_speed);
+  let windspeed4 = Math.round(response.data.daily[4].wind_speed);
+  let windspeed5 = Math.round(response.data.daily[5].wind_speed);
+
+  //forecast write up for London
+  let day1conditions = (`Highs of ${temp1max} and lows of ${temp1min}, humidity: ${humidity1}%, wind speed: ${windspeed1} Km/h`);
+  let day1data = document.querySelector("#day1");
+  day1data.innerHTML = `${day1conditions}`;
+
+  let day2conditions = (`Highs of ${temp2max} and lows of ${temp2min}, humidity: ${humidity2}%, wind speed: ${windspeed2} Km/h`);
+  let day2data = document.querySelector("#day2");
+  day2data.innerHTML = `${day2conditions}`;
+
+  let day3conditions = (`Highs of ${temp3max} and lows of ${temp3min}, humidity: ${humidity3}%, wind speed: ${windspeed3} Km/h`);
+  let day3data = document.querySelector("#day3");
+  day3data.innerHTML = `${day3conditions}`;
+
+  let day4conditions = (`Highs of ${temp4max} and lows of ${temp4min}, humidity: ${humidity4}%, wind speed: ${windspeed4} Km/h`);
+  let day4data = document.querySelector("#day4");
+  day4data.innerHTML = `${day4conditions}`;
+
+  let day5conditions = (`Highs of ${temp5max} and lows of ${temp5min}, humidity: ${humidity5}%, wind speed: ${windspeed5} Km/h`);
+  let day5data = document.querySelector("#day5");
+  day5data.innerHTML = `${day5conditions}`;
+}
+let lon = "-0.1276";
+let lat = "51.5073";
+let unit = "metric";
+let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
+let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`;
+axios.get(apiUrl).then(getLondon);
 
 // Celsius and fahrenheit buttons
 // Note - need to replace this with a calculation rather than fixed values.
