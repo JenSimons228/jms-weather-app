@@ -70,58 +70,55 @@ day5DateText.innerHTML = `${day5Date} ${day5Month} ${day5Year}`;
 // Note - current = now, daily[0] = today, daily [1] = tomorrow etc.
 
 function showForecast(response) {
-  let maxtemp1 = (response.data.daily[1].temp.max);
-  let maxtemp2 = (response.data.daily[2].temp.max);
-  let maxtemp3 = (response.data.daily[3].temp.max);
-  let maxtemp4 = (response.data.daily[4].temp.max);
-  let maxtemp5 = (response.data.daily[5].temp.max);
+  let temp1max = Math.round(response.data.daily[1].temp.max);
+  let temp2max = Math.round(response.data.daily[2].temp.max);
+  let temp3max = Math.round(response.data.daily[3].temp.max);
+  let temp4max = Math.round(response.data.daily[4].temp.max);
+  let temp5max = Math.round(response.data.daily[5].temp.max);
 
-  let mintemp1 = (response.data.daily[1].temp.min);
-  let mintemp2 = (response.data.daily[2].temp.min);
-  let mintemp3 = (response.data.daily[3].temp.min);
-  let mintemp4 = (response.data.daily[4].temp.min);
-  let mintemp5 = (response.data.daily[5].temp.min);
+  let temp1min = Math.round(response.data.daily[1].temp.min);
+  let temp2min = Math.round(response.data.daily[2].temp.min);
+  let temp3min = Math.round(response.data.daily[3].temp.min);
+  let temp4min = Math.round(response.data.daily[4].temp.min);
+  let temp5min = Math.round(response.data.daily[5].temp.min);
 
-  let humidity1 = (response.data.daily[1].humidity);
-  let humidity2 = (response.data.daily[2].humidity);
-  let humidity3 = (response.data.daily[3].humidity);
-  let humidity4 = (response.data.daily[4].humidity);
-  let humidity5 = (response.data.daily[5].humidity);
+  let humidity1 = Math.round(response.data.daily[1].humidity);
+  let humidity2 = Math.round(response.data.daily[2].humidity);
+  let humidity3 = Math.round(response.data.daily[3].humidity);
+  let humidity4 = Math.round(response.data.daily[4].humidity);
+  let humidity5 = Math.round(response.data.daily[5].humidity);
 
-  let windspeed1 = (response.data.daily[1].wind_speed);
-  let windspeed2 = (response.data.daily[2].wind_speed);
-  let windspeed3 = (response.data.daily[3].wind_speed);
-  let windspeed4 = (response.data.daily[4].wind_speed);
-  let windspeed5 = (response.data.daily[5].wind_speed);
+  let windspeed1 = Math.round(response.data.daily[1].wind_speed);
+  let windspeed2 = Math.round(response.data.daily[2].wind_speed);
+  let windspeed3 = Math.round(response.data.daily[3].wind_speed);
+  let windspeed4 = Math.round(response.data.daily[4].wind_speed);
+  let windspeed5 = Math.round(response.data.daily[5].wind_speed);
 
-  let day1conditions = (`Highs of ${maxtemp1} and lows of ${mintemp1}, humidity: ${humidity1}%, wind speed: ${windspeed1} Km/h`);
+  let description1 = (response.data.daily[1].weather[0].description);
+  let description2 = (response.data.daily[2].weather[0].description);
+  let description3 = (response.data.daily[3].weather[0].description);
+  let description4 = (response.data.daily[4].weather[0].description);
+  let description5 = (response.data.daily[5].weather[0].description);
+
+  let day1conditions = (`Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`);
   let day1data = document.querySelector("#day1");
   day1data.innerHTML = `${day1conditions}`;
 
-  let day2conditions = (`Highs of ${maxtemp2} and lows of ${mintemp2}, humidity: ${humidity2}%, wind speed: ${windspeed2} Km/h`);
+  let day2conditions = (`Conditions: ${description2} - Highs of ${temp2max} and lows of ${temp2min} - Humidity: ${humidity2}% - Wind speed: ${windspeed2} Km/h`);
   let day2data = document.querySelector("#day2");
   day2data.innerHTML = `${day2conditions}`;
 
-  let day3conditions = (`Highs of ${maxtemp3} and lows of ${mintemp3}, humidity: ${humidity3}%, wind speed: ${windspeed3} Km/h`);
+  let day3conditions = (`Conditions: ${description3} - Highs of ${temp3max} and lows of ${temp3min} - Humidity: ${humidity3}% - Wind speed: ${windspeed3} Km/h`);
   let day3data = document.querySelector("#day3");
   day3data.innerHTML = `${day3conditions}`;
 
-  let day4conditions = (`Highs of ${maxtemp4} and lows of ${mintemp4}, humidity: ${humidity4}%, wind speed: ${windspeed4} Km/h`);
+  let day4conditions = (`Conditions: ${description4} - Highs of ${temp4max} and lows of ${temp4min} - Humidity: ${humidity4}% - Wind speed: ${windspeed4} Km/h`);
   let day4data = document.querySelector("#day4");
   day4data.innerHTML = `${day4conditions}`;
 
-  let day5conditions = (`Highs of ${maxtemp5} and lows of ${mintemp5}, humidity: ${humidity5}%, wind speed: ${windspeed5} Km/h`);
+  let day5conditions = (`Conditions: ${description5} - Highs of ${temp5max} and lows of ${temp5min} - Humidity: ${humidity5}% - Wind speed: ${windspeed5} Km/h`);
   let day5data = document.querySelector("#day5");
   day5data.innerHTML = `${day5conditions}`;
-  
-  console.log(response.data.daily[1].temp.min);
-  console.log(response.data.daily[1].humidity);
-  console.log(response.data.daily[1].weather[0].description);
-  console.log(response.data.daily[1].weather[0].icon);
-  console.log(response.data.daily[1].wind_speed);
-  console.log(response.data.daily[1].sunrise);
-  console.log(response.data.daily[1].sunset);
-  console.log(response);
 }
 
 // City search field
@@ -232,18 +229,15 @@ function getLondon(response) {
   
   //forecast temperature for London
   let temp1max = Math.round(response.data.daily[1].temp.max);
-  let temp1min = Math.round(response.data.daily[1].temp.min);
-
   let temp2max = Math.round(response.data.daily[2].temp.max);
-  let temp2min = Math.round(response.data.daily[2].temp.min);
-
   let temp3max = Math.round(response.data.daily[3].temp.max);
-  let temp3min = Math.round(response.data.daily[3].temp.min);
-
   let temp4max = Math.round(response.data.daily[4].temp.max);
-  let temp4min = Math.round(response.data.daily[4].temp.min);
-
   let temp5max = Math.round(response.data.daily[5].temp.max);
+
+  let temp1min = Math.round(response.data.daily[1].temp.min);  
+  let temp2min = Math.round(response.data.daily[2].temp.min);
+  let temp3min = Math.round(response.data.daily[3].temp.min);
+  let temp4min = Math.round(response.data.daily[4].temp.min);
   let temp5min = Math.round(response.data.daily[5].temp.min);
 
   //current weather description for London
@@ -252,11 +246,11 @@ function getLondon(response) {
   description.innerHTML = `Conditions: ${mainDescription}`;
   
   //forecast weather description for London
-  let description1 = response.data.daily[1].description;
-  let description2 = response.data.daily[2].description;
-  let description3 = response.data.daily[3].description;
-  let description4 = response.data.daily[4].description;
-  let description5 = response.data.daily[5].description;
+  let description1 = response.data.daily[1].weather[0].description;
+  let description2 = response.data.daily[2].weather[0].description;
+  let description3 = response.data.daily[3].weather[0].description;
+  let description4 = response.data.daily[4].weather[0].description;
+  let description5 = response.data.daily[5].weather[0].description;
 
   //current humidity for London
   let humidity = Math.round(response.data.current.humidity);
@@ -283,23 +277,24 @@ function getLondon(response) {
   let windspeed5 = Math.round(response.data.daily[5].wind_speed);
 
   //forecast write up for London
-  let day1conditions = (`Highs of ${temp1max} and lows of ${temp1min}, humidity: ${humidity1}%, wind speed: ${windspeed1} Km/h`);
+  //need to add description
+  let day1conditions = `Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`;
   let day1data = document.querySelector("#day1");
   day1data.innerHTML = `${day1conditions}`;
 
-  let day2conditions = (`Highs of ${temp2max} and lows of ${temp2min}, humidity: ${humidity2}%, wind speed: ${windspeed2} Km/h`);
+  let day2conditions = `Conditions: ${description2} - Highs of ${temp2max} and lows of ${temp2min} - Humidity: ${humidity2}% - Wind speed: ${windspeed2} Km/h`;
   let day2data = document.querySelector("#day2");
   day2data.innerHTML = `${day2conditions}`;
 
-  let day3conditions = (`Highs of ${temp3max} and lows of ${temp3min}, humidity: ${humidity3}%, wind speed: ${windspeed3} Km/h`);
+  let day3conditions = `Conditions: ${description3} - Highs of ${temp3max} and lows of ${temp3min} - Humidity: ${humidity3}% - Wind speed: ${windspeed3} Km/h`;
   let day3data = document.querySelector("#day3");
   day3data.innerHTML = `${day3conditions}`;
 
-  let day4conditions = (`Highs of ${temp4max} and lows of ${temp4min}, humidity: ${humidity4}%, wind speed: ${windspeed4} Km/h`);
+  let day4conditions = `Conditions: ${description4} - Highs of ${temp4max} and lows of ${temp4min} - Humidity: ${humidity4}% - Wind speed: ${windspeed4} Km/h`;
   let day4data = document.querySelector("#day4");
   day4data.innerHTML = `${day4conditions}`;
 
-  let day5conditions = (`Highs of ${temp5max} and lows of ${temp5min}, humidity: ${humidity5}%, wind speed: ${windspeed5} Km/h`);
+  let day5conditions = `Conditions: ${description5} - Highs of ${temp5max} and lows of ${temp5min} - Humidity: ${humidity5}% - Wind speed: ${windspeed5} Km/h`;
   let day5data = document.querySelector("#day5");
   day5data.innerHTML = `${day5conditions}`;
 }
