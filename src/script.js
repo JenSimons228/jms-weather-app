@@ -171,22 +171,24 @@ function showTemp(response) {
   let mainDescription = response.data.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
+  let userLocation = response.data.name;
+  let h1 = document.querySelector("#cityName");
+  h1.innerHTML = `${userLocation}`;
   }
+
 function myPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let unit = "metric";
+  let exclude = "minutely,hourly,alerts";
   let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`;
+  let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${exclude}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(showTemp);
+  axios.get(apiUrl2).then(showForecast);
 }
 
-    // Note: need to fix this so that it shows a location rather than 'Your current location' as this will prevent the forecast script from running. Can now use the location API to correct this.
 function myLocationButton() {
-  let placeMain = document.querySelector("h1");
-  placeMain.innerHTML = "Your current location";
-  let cityInput = document.querySelector("#city-input");
-  cityInput.value = placeMain.innerHTML;
   navigator.geolocation.getCurrentPosition(myPosition);
 }
 
@@ -277,8 +279,7 @@ function getLondon(response) {
   let windspeed5 = Math.round(response.data.daily[5].wind_speed);
 
   //forecast write up for London
-  //need to add description
-  let day1conditions = `Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`;
+    let day1conditions = `Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`;
   let day1data = document.querySelector("#day1");
   day1data.innerHTML = `${day1conditions}`;
 
