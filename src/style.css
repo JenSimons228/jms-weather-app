@@ -18,6 +18,9 @@
   padding: 0;
   text-indent: 10px;
 }
+.form-control: {
+  background: rgba(255, 255, 255, 0.5);
+}
 .btn {
   font-weight: bold;
   font-size: 18px;
