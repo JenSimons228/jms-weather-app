@@ -1,4 +1,9 @@
-// Note: Weather icons, celsius and fahrenheit buttons and future weather conditions not working for week 5 homework
+// Items not yet working:
+    // Celsius button - works on main but need to apply to forecast
+    // Fahrenheit button - works on main but need to apply to forecast
+    // Field clear function - to clear typed city when the user location button is clicked
+    // Format H1 field so that city name appears correctly (e.g. London, not london or LONDON)
+
 // Show dates for today and next 5 days
 
 let now = new Date();
@@ -66,10 +71,11 @@ day4DateText.innerHTML = `${day4Date} ${day4Month} ${day4Year}`;
 let day5DateText = document.querySelector("#day5-date");
 day5DateText.innerHTML = `${day5Date} ${day5Month} ${day5Year}`;
 
-// Pull forecast data
-// Note - current = now, daily[0] = today, daily [1] = tomorrow etc.
+// Forecast weather data
 
 function showForecast(response) {
+  //temperature
+  //Note: shows temp in Celsius
   let temp1max = Math.round(response.data.daily[1].temp.max);
   let temp2max = Math.round(response.data.daily[2].temp.max);
   let temp3max = Math.round(response.data.daily[3].temp.max);
@@ -82,41 +88,67 @@ function showForecast(response) {
   let temp4min = Math.round(response.data.daily[4].temp.min);
   let temp5min = Math.round(response.data.daily[5].temp.min);
 
+  //humidity
   let humidity1 = Math.round(response.data.daily[1].humidity);
   let humidity2 = Math.round(response.data.daily[2].humidity);
   let humidity3 = Math.round(response.data.daily[3].humidity);
   let humidity4 = Math.round(response.data.daily[4].humidity);
   let humidity5 = Math.round(response.data.daily[5].humidity);
 
-  let windspeed1 = Math.round(response.data.daily[1].wind_speed);
-  let windspeed2 = Math.round(response.data.daily[2].wind_speed);
-  let windspeed3 = Math.round(response.data.daily[3].wind_speed);
-  let windspeed4 = Math.round(response.data.daily[4].wind_speed);
-  let windspeed5 = Math.round(response.data.daily[5].wind_speed);
-
+  //windspeed
+  //calculation to convert m/s into mph
+  let windspeed1 = Math.round(response.data.daily[1].wind_speed*2.23694);
+  let windspeed2 = Math.round(response.data.daily[2].wind_speed*2.23694);
+  let windspeed3 = Math.round(response.data.daily[3].wind_speed*2.23694);
+  let windspeed4 = Math.round(response.data.daily[4].wind_speed*2.23694);
+  let windspeed5 = Math.round(response.data.daily[5].wind_speed*2.23694);
+  
+  //description
   let description1 = (response.data.daily[1].weather[0].description);
   let description2 = (response.data.daily[2].weather[0].description);
   let description3 = (response.data.daily[3].weather[0].description);
   let description4 = (response.data.daily[4].weather[0].description);
   let description5 = (response.data.daily[5].weather[0].description);
 
-  let day1conditions = (`Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`);
+  //icon
+  let iconCode1 = (response.data.daily[1].weather[0].icon);
+  let icon1 = document.querySelector("#icon1");
+  icon1.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode1}@2x.png`);
+
+  let iconCode2 = (response.data.daily[2].weather[0].icon);
+  let icon2 = document.querySelector("#icon2");
+  icon2.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode2}@2x.png`);
+
+  let iconCode3 = (response.data.daily[3].weather[0].icon);
+  let icon3 = document.querySelector("#icon3");
+  icon3.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode3}@2x.png`);
+
+  let iconCode4 = (response.data.daily[4].weather[0].icon);
+  let icon4 = document.querySelector("#icon4");
+  icon4.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode4}@2x.png`);
+
+  let iconCode5 = (response.data.daily[5].weather[0].icon);
+  let icon5 = document.querySelector("#icon5");
+  icon5.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode5}@2x.png`);
+
+  //write up
+  let day1conditions = (`Conditions: ${description1} - Highs of ${temp1max}°C and lows of ${temp1min}°C - Humidity: ${humidity1}% - Wind speed: ${windspeed1} mph`);
   let day1data = document.querySelector("#day1");
   day1data.innerHTML = `${day1conditions}`;
 
-  let day2conditions = (`Conditions: ${description2} - Highs of ${temp2max} and lows of ${temp2min} - Humidity: ${humidity2}% - Wind speed: ${windspeed2} Km/h`);
+  let day2conditions = (`Conditions: ${description2} - Highs of ${temp2max}°C and lows of ${temp2min}°C - Humidity: ${humidity2}% - Wind speed: ${windspeed2} mph`);
   let day2data = document.querySelector("#day2");
   day2data.innerHTML = `${day2conditions}`;
 
-  let day3conditions = (`Conditions: ${description3} - Highs of ${temp3max} and lows of ${temp3min} - Humidity: ${humidity3}% - Wind speed: ${windspeed3} Km/h`);
+  let day3conditions = (`Conditions: ${description3} - Highs of ${temp3max}°C and lows of ${temp3min}°C - Humidity: ${humidity3}% - Wind speed: ${windspeed3} mph`);
   let day3data = document.querySelector("#day3");
   day3data.innerHTML = `${day3conditions}`;
 
-  let day4conditions = (`Conditions: ${description4} - Highs of ${temp4max} and lows of ${temp4min} - Humidity: ${humidity4}% - Wind speed: ${windspeed4} Km/h`);
+  let day4conditions = (`Conditions: ${description4} - Highs of ${temp4max}°C and lows of ${temp4min}°C - Humidity: ${humidity4}% - Wind speed: ${windspeed4} mph`);
   let day4data = document.querySelector("#day4");
   day4data.innerHTML = `${day4conditions}`;
 
-  let day5conditions = (`Conditions: ${description5} - Highs of ${temp5max} and lows of ${temp5min} - Humidity: ${humidity5}% - Wind speed: ${windspeed5} Km/h`);
+  let day5conditions = (`Conditions: ${description5} - Highs of ${temp5max}°C and lows of ${temp5min}°C - Humidity: ${humidity5}% - Wind speed: ${windspeed5} mph`);
   let day5data = document.querySelector("#day5");
   day5data.innerHTML = `${day5conditions}`;
 }
@@ -134,12 +166,32 @@ function getLonLat(response) {
 }
 
 function showTemperature(response) {
-  let temperature = Math.round(response.data.main.temp);
+  //temperature 
+  celsiusResult = response.data.main.temp;
+  let temperature = Math.round(celsiusResult);
   let degrees = document.querySelector("#main-temp");
   degrees.innerHTML = `${temperature}°C`;
+  
+  //description
   let mainDescription = response.data.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
+  
+  //icon
+  let iconCode = (response.data.weather[0].icon);
+  let icon = document.querySelector("#main-icon");
+  icon.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode}@2x.png`);
+  
+  //humidity
+  let mainHumidity = Math.round(response.data.main.humidity);
+  let humidity = document.querySelector("#main-humidity");
+  humidity.innerHTML = `Humidity: ${mainHumidity}%`;
+  
+  //windspeed
+  //calculation to convert m/s to mph
+  let mainWindspeed = Math.round(response.data.wind.speed*2.23694);
+  let windspeed = document.querySelector("#main-windspeed");
+  windspeed.innerHTML = `Windspeed: ${mainWindspeed} mph`;
 }
 
 function search(event) {
@@ -156,6 +208,7 @@ function search(event) {
   axios.get(apiUrl1).then(getLonLat);
 }
 
+      //need to fix this so that the form resets itself when user location is selected after a city has been typed in.
 let refreshButton = document.querySelector("#refresh-button");
 refreshButton.addEventListener("click", search);
 
@@ -165,15 +218,37 @@ form.addEventListener("submit", search);
 // My location button
 
 function showTemp(response) {
-  let temperature = Math.round(response.data.main.temp);
+  //temperature
+  celsiusResult = response.data.main.temp
+  let temperature = Math.round(celsiusResult);
   let degrees = document.querySelector("#main-temp");
   degrees.innerHTML = `${temperature}°C`;
+  
+  //description
   let mainDescription = response.data.weather[0].description;
   let description = document.querySelector("#main-description");
   description.innerHTML = `Conditions: ${mainDescription}`;
+  
+  //location
   let userLocation = response.data.name;
   let h1 = document.querySelector("#cityName");
   h1.innerHTML = `${userLocation}`;
+  
+  //icon
+  let iconCode = (response.data.weather[0].icon);
+  let icon = document.querySelector("#main-icon");
+  icon.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode}@2x.png`);
+  
+  //humidity
+  let mainHumidity = Math.round(response.data.main.humidity);
+  let humidity = document.querySelector("#main-humidity");
+  humidity.innerHTML = `Humidity: ${mainHumidity}%`;
+  
+  //windspeed
+  //calculation to convert m/s to mph
+  let mainWindspeed = Math.round(response.data.wind.speed*2.23694);
+  let windspeed = document.querySelector("#main-windspeed");
+  windspeed.innerHTML = `Windspeed: ${mainWindspeed} mph`;
   }
 
 function myPosition(position) {
@@ -225,7 +300,8 @@ function getLondon(response) {
   icon5.setAttribute("src",`http://openweathermap.org/img/wn/${iconCode5}@2x.png`);
   
   //current temperature for London
-  let temp = Math.round(response.data.current.temp);
+  celsiusResult = response.data.current.temp
+  let temp = Math.round(celsiusResult);
   let degrees = document.querySelector("#main-temp");
   degrees.innerHTML = `${temp}°C`;
   
@@ -267,58 +343,68 @@ function getLondon(response) {
   let humidity5 = Math.round(response.data.daily[5].humidity);
 
   //current windspeed for London
-  let windspeed = Math.round(response.data.current.wind_speed);
+  //calculation to convert m/s to mph
+  let windspeed = Math.round(response.data.current.wind_speed*2.23694);
   let windspeedResult = document.querySelector("#main-windspeed");
-  windspeedResult.innerHTML = `Wind Speed: ${windspeed} Km/h`;
+  windspeedResult.innerHTML = `Wind Speed: ${windspeed} mph`;
 
   //forecast windspeed for London
-  let windspeed1 = Math.round(response.data.daily[1].wind_speed);
-  let windspeed2 = Math.round(response.data.daily[2].wind_speed);
-  let windspeed3 = Math.round(response.data.daily[3].wind_speed);
-  let windspeed4 = Math.round(response.data.daily[4].wind_speed);
-  let windspeed5 = Math.round(response.data.daily[5].wind_speed);
+  //calculation to convert m/s to mph
+  let windspeed1 = Math.round(response.data.daily[1].wind_speed*2.23694);
+  let windspeed2 = Math.round(response.data.daily[2].wind_speed*2.23694);
+  let windspeed3 = Math.round(response.data.daily[3].wind_speed*2.23694);
+  let windspeed4 = Math.round(response.data.daily[4].wind_speed*2.23694);
+  let windspeed5 = Math.round(response.data.daily[5].wind_speed*2.23694);
 
   //forecast write up for London
-    let day1conditions = `Conditions: ${description1} - Highs of ${temp1max} and lows of ${temp1min} - Humidity: ${humidity1}% - Wind speed: ${windspeed1} Km/h`;
+  let day1conditions = `Conditions: ${description1} - Highs of ${temp1max}°C and lows of ${temp1min}°C - Humidity: ${humidity1}% - Wind speed: ${windspeed1} mph`;
   let day1data = document.querySelector("#day1");
   day1data.innerHTML = `${day1conditions}`;
 
-  let day2conditions = `Conditions: ${description2} - Highs of ${temp2max} and lows of ${temp2min} - Humidity: ${humidity2}% - Wind speed: ${windspeed2} Km/h`;
+  let day2conditions = `Conditions: ${description2} - Highs of ${temp2max}°C and lows of ${temp2min}°C - Humidity: ${humidity2}% - Wind speed: ${windspeed2} mph`;
   let day2data = document.querySelector("#day2");
   day2data.innerHTML = `${day2conditions}`;
 
-  let day3conditions = `Conditions: ${description3} - Highs of ${temp3max} and lows of ${temp3min} - Humidity: ${humidity3}% - Wind speed: ${windspeed3} Km/h`;
+  let day3conditions = `Conditions: ${description3} - Highs of ${temp3max}°C and lows of ${temp3min}°C - Humidity: ${humidity3}% - Wind speed: ${windspeed3} mph`;
   let day3data = document.querySelector("#day3");
   day3data.innerHTML = `${day3conditions}`;
 
-  let day4conditions = `Conditions: ${description4} - Highs of ${temp4max} and lows of ${temp4min} - Humidity: ${humidity4}% - Wind speed: ${windspeed4} Km/h`;
+  let day4conditions = `Conditions: ${description4} - Highs of ${temp4max}°C and lows of ${temp4min}°C - Humidity: ${humidity4}% - Wind speed: ${windspeed4} mph`;
   let day4data = document.querySelector("#day4");
   day4data.innerHTML = `${day4conditions}`;
 
-  let day5conditions = `Conditions: ${description5} - Highs of ${temp5max} and lows of ${temp5min} - Humidity: ${humidity5}% - Wind speed: ${windspeed5} Km/h`;
+  let day5conditions = `Conditions: ${description5} - Highs of ${temp5max}°C and lows of ${temp5min}°C - Humidity: ${humidity5}% - Wind speed: ${windspeed5} mph`;
   let day5data = document.querySelector("#day5");
   day5data.innerHTML = `${day5conditions}`;
 }
+
+// Celsius and fahrenheit buttons
+
+// Note: changes unit on main weather section only
+function replaceWithF(event) {
+  let fTemp = (celsiusResult*1.8+32);
+  let temperatureElement = document.querySelector("#main-temp");
+  let temperatureValue = Math.round(fTemp);
+  temperatureElement.innerHTML = `${temperatureValue}°F`;
+}
+let fbutton = document.querySelector("#fbutton");
+fbutton.addEventListener("click", replaceWithF);
+
+// Note: changes unit on main weather section only
+function replaceWithC(event) {
+  let cTemp = (celsiusResult);
+  let temperatureElement = document.querySelector("#main-temp");
+  let temperatureValue = Math.round(cTemp);
+  temperatureElement.innerHTML = `${temperatureValue}°C`;
+}
+let cbutton = document.querySelector("#cbutton");
+cbutton.addEventListener("click", replaceWithC);
+
+// Global conditions
+let celsiusResult = null;
 let lon = "-0.1276";
 let lat = "51.5073";
 let unit = "metric";
 let apiKey = "20b8554eeba454a5c2dc8a5569e82273";
 let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`;
 axios.get(apiUrl).then(getLondon);
-
-// Celsius and fahrenheit buttons
-// Note - need to replace this with a calculation rather than fixed values.
-
-function replaceWithF(event) {
-  let degrees = document.querySelector("#main-temp");
-  degrees.innerHTML = "63°F";
-}
-let fbutton = document.querySelector("#fbutton");
-fbutton.addEventListener("click", replaceWithF);
-
-function replaceWithC(event) {
-  let degrees = document.querySelector("#main-temp");
-  degrees.innerHTML = "17°C";
-}
-let cbutton = document.querySelector("#cbutton");
-cbutton.addEventListener("click", replaceWithC);
