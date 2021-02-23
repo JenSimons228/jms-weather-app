@@ -1,9 +1,3 @@
-// Items not yet working:
-    // Celsius button - works on main but need to apply to forecast
-    // Fahrenheit button - works on main but need to apply to forecast
-    // Field clear function - to clear typed city when the user location button is clicked
-    // Format H1 field so that city name appears correctly (e.g. London, not london or LONDON)
-
 // Show dates for today and next 5 days
 
 let now = new Date();
@@ -208,7 +202,6 @@ function search(event) {
   axios.get(apiUrl1).then(getLonLat);
 }
 
-      //need to fix this so that the form resets itself when user location is selected after a city has been typed in.
 let refreshButton = document.querySelector("#refresh-button");
 refreshButton.addEventListener("click", search);
 
@@ -382,6 +375,7 @@ function getLondon(response) {
 
 // Note: changes unit on main weather section only
 function replaceWithF(event) {
+  event.preventDefault();
   let fTemp = (celsiusResult*1.8+32);
   let temperatureElement = document.querySelector("#main-temp");
   let temperatureValue = Math.round(fTemp);
@@ -392,6 +386,7 @@ fbutton.addEventListener("click", replaceWithF);
 
 // Note: changes unit on main weather section only
 function replaceWithC(event) {
+  event.preventDefault();
   let cTemp = (celsiusResult);
   let temperatureElement = document.querySelector("#main-temp");
   let temperatureValue = Math.round(cTemp);
